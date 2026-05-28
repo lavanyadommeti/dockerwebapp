@@ -1,5 +1,5 @@
 ---
-version: "3"
+version: "3.9"
 services:
  devopsdb:
    image: dommeti/automation:db
@@ -7,6 +7,8 @@ services:
      - "3306:3306"
    deploy:
       replicas: 3
+  networks:
+     - mynetwork
 
  application:
    image: dommeti/automation:app
@@ -16,3 +18,9 @@ services:
       replicas: 3
    depends_on:
      - "devopsdb"
+   networks:
+     - mynetwork
+
+networks:
+ mynetwork:
+  driver: overlay
